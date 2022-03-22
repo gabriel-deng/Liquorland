@@ -7,17 +7,19 @@
         <entry key="..\:/Users/GABU/AndroidStudioProjects/LiquorLand/app/src/main/res/drawable/rounded_corners.xml" value="0.19722222222222222" />
         <entry key="..\:/Users/GABU/AndroidStudioProjects/LiquorLand/app/src/main/res/layout/activity_authentication.xml" value="0.25" />
         <entry key="..\:/Users/GABU/AndroidStudioProjects/LiquorLand/app/src/main/res/layout/activity_main.xml" value="0.196875" />
-        <entry key="..\:/Users/GABU/AndroidStudioProjects/LiquorLand/app/src/main/res/layout/brands_fragment.xml" value="0.22" />
+        <entry key="..\:/Users/GABU/AndroidStudioProjects/LiquorLand/app/src/main/res/layout/brands_fragment.xml" value="0.1" />
         <entry key="..\:/Users/GABU/AndroidStudioProjects/LiquorLand/app/src/main/res/layout/cart_fragment.xml" value="0.196875" />
+        <entry key="..\:/Users/GABU/AndroidStudioProjects/LiquorLand/app/src/main/res/layout/category_item.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/GABU/AndroidStudioProjects/LiquorLand/app/src/main/res/layout/fragment_checkout.xml" value="0.22" />
         <entry key="..\:/Users/GABU/AndroidStudioProjects/LiquorLand/app/src/main/res/layout/fragment_dashboard.xml" value="0.196875" />
         <entry key="..\:/Users/GABU/AndroidStudioProjects/LiquorLand/app/src/main/res/layout/fragment_home.xml" value="0.25" />
         <entry key="..\:/Users/GABU/AndroidStudioProjects/LiquorLand/app/src/main/res/layout/fragment_item.xml" value="0.22" />
+        <entry key="..\:/Users/GABU/AndroidStudioProjects/LiquorLand/app/src/main/res/layout/fragment_item_detail.xml" value="0.22" />
         <entry key="..\:/Users/GABU/AndroidStudioProjects/LiquorLand/app/src/main/res/layout/fragment_item_list.xml" value="0.1" />
         <entry key="..\:/Users/GABU/AndroidStudioProjects/LiquorLand/app/src/main/res/layout/fragment_notifications.xml" value="0.196875" />
         <entry key="..\:/Users/GABU/AndroidStudioProjects/LiquorLand/app/src/main/res/layout/fragment_pay_method.xml" value="0.22" />
         <entry key="..\:/Users/GABU/AndroidStudioProjects/LiquorLand/app/src/main/res/layout/item_drink.xml" value="0.22" />
-        <entry key="..\:/Users/GABU/AndroidStudioProjects/LiquorLand/app/src/main/res/layout/sign_in.xml" value="0.25" />
+        <entry key="..\:/Users/GABU/AndroidStudioProjects/LiquorLand/app/src/main/res/layout/sign_in.xml" value="0.22" />
         <entry key="..\:/Users/GABU/AndroidStudioProjects/LiquorLand/app/src/main/res/menu/bottom_nav_menu.xml" value="0.18" />
       </map>
     </option>

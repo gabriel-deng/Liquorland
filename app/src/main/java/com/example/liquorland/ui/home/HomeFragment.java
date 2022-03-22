@@ -37,17 +37,16 @@ public class HomeFragment extends Fragment {
     Context context= getContext();
 
     TextView see_all;
+    ImageView offers;
 
     ArrayList<Drink> drinks= new ArrayList<>();
     DrinksAdapter drinksAdapter;
     RecyclerView drinkrecyclerview;
 
-    View root;
-
-
+  //  View view;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-
+      //  view= getView();
 
         homeViewModel =
                 new ViewModelProvider(this).get(HomeViewModel.class);
@@ -56,7 +55,6 @@ public class HomeFragment extends Fragment {
         root = inflater.inflate(R.layout.fragment_home, container, false);
         ArrayList<Drink> drinks= sampledrinks();
 
-     //   see_all= new View(context).findViewById(R.id.txt_see_all);
 
         drinkrecyclerview= root.findViewById(R.id.drinks_recyclerview);
         drinkrecyclerview.setNestedScrollingEnabled(true);
@@ -64,18 +62,40 @@ public class HomeFragment extends Fragment {
 
         drinksAdapter= new DrinksAdapter(context, drinks);
         drinkrecyclerview.setAdapter(drinksAdapter);
-//
-//        see_all.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Fragment brands = new BrandsFragment();
-//                   FragmentManager fragmentManager = getFragmentManager();
-//                    FragmentTransaction transaction = fragmentManager.beginTransaction();
-//                   transaction.replace(R.id.nav_host_fragment_activity_main, brands);
-//            }
-//        });
+
+
 
         return root;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        see_all=view.findViewById(R.id.txt_see_all);
+        see_all.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                BrandsFragment brandsFragment = new BrandsFragment();
+                FragmentManager fragmentManager= getFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.nav_host_fragment_activity_main, brandsFragment);
+                fragmentTransaction.commit();
+            }
+        });
+        offers=view.findViewById(R.id.img_offer);
+        offers.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                BrandsFragment brandsFragment = new BrandsFragment();
+                FragmentManager fragmentManager= getFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.nav_host_fragment_activity_main, brandsFragment);
+                fragmentTransaction.commit();
+            }
+
+        });
+
     }
 
     @Override

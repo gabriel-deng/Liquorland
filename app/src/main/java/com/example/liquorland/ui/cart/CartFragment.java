@@ -1,31 +1,22 @@
 package com.example.liquorland.ui.cart;
 
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
 
-import com.example.liquorland.AuthenticationActivity;
-import com.example.liquorland.Checkout;
-import com.example.liquorland.ItemDetail;
 import com.example.liquorland.R;
-import com.example.liquorland.databinding.BrandsFragmentBinding;
 import com.example.liquorland.databinding.CartFragmentBinding;
-import com.example.liquorland.ui.brands.BrandsFragment;
-import com.example.liquorland.ui.brands.BrandsViewModel;
 
 public class CartFragment extends Fragment implements View.OnClickListener {
 
@@ -36,18 +27,19 @@ public class CartFragment extends Fragment implements View.OnClickListener {
 
     Button button;
 
-    View view;
+    //View view;
+    View root;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater, @NonNull ViewGroup container,
                              Bundle savedInstanceState) {
 
-        view= getView();
+        //view= getView();
 
         cartViewModel= new ViewModelProvider(this).get(CartViewModel.class);
 
         binding= CartFragmentBinding.inflate(inflater, container, false);
-        View root= binding.getRoot();
+        root= binding.getRoot();
 
         return root;
 
@@ -58,22 +50,27 @@ public class CartFragment extends Fragment implements View.OnClickListener {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        button= view.findViewById(R.id.button12);
+        button= root.findViewById(R.id.button12);
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                {
-//                    Fragment itemdetail = new ItemDetail();
-//                    FragmentManager fragmentManager = getFragmentManager();
-//                    FragmentTransaction transaction = fragmentManager.beginTransaction();
-//                    transaction.replace(R.id.nav_host_fragment_activity_main, itemdetail);
+               {
+
+//                   ItemDetail itemDetail= new ItemDetail();
 //
+//                   FragmentManager fragmentManager= getFragmentManager();
+//                   FragmentTransaction fragmentTransaction= fragmentManager.beginTransaction();
+//                   fragmentTransaction.replace(R.id.nav_host_fragment_activity_main, itemDetail);
+//                   fragmentTransaction.commit();
 
-                    Intent intent= new Intent(getActivity(), AuthenticationActivity.class);
-                    startActivity(intent);
 
+                   Navigation.findNavController(root).navigate(R.id.authenticationActivity);
+
+//                    Intent intent= new Intent(getActivity(), AuthenticationActivity.class);
+//                    startActivity(intent);
+//
 
 
                 }

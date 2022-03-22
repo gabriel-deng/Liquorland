@@ -20,7 +20,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="BRANDS"
+            android:text="CATEGORIES"
             android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.AppCompat.Display2"
             android:textColor="#FFD700"
@@ -57,15 +57,16 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/drink_recyclerview"
+            android:id="@+id/category_recyclerview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginTop="32dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textInputEditText"
-            tools:itemCount="20"
-            tools:listitem="@layout/item_drink" />
+            tools:itemCount="12"
+            tools:listitem="@layout/category_item" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

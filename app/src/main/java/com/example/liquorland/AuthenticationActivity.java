@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,6 +22,8 @@ public class AuthenticationActivity extends AppCompatActivity {
     TextInputEditText firstname, lastname,password,confirm ,emailaddress;
     Button login;
     PreferenceStorage preferenceStorage;
+
+    CheckBox status;
 
 
 
@@ -41,6 +44,8 @@ public class AuthenticationActivity extends AppCompatActivity {
 
         preferenceStorage= new PreferenceStorage(this);
 
+        status=findViewById(R.id.txt_status);
+
         signup.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -53,12 +58,20 @@ public class AuthenticationActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+
                 if(validateInputs()){
                     firstname.getText().toString().trim();
                     lastname.getText().toString().trim().trim();
                     emailaddress.getText().toString().trim();
                     password.getText().toString().trim();
 
+
+                    preferenceStorage.SaveUserData(
+                        firstname.getText().toString().trim(),
+                        lastname.getText().toString().trim().trim(),
+                        emailaddress.getText().toString().trim(),
+                        password.getText().toString().trim()
+                    );
 
                     preferenceStorage.setLoggingInStatus(true);
 
@@ -110,6 +123,18 @@ public class AuthenticationActivity extends AppCompatActivity {
 
         return response;
     }
+    public void onCheckboxClicked(View view){
+        boolean checked= status.isChecked();
+
+        if(status.isChecked()){
+            preferenceStorage.setLoggingInStatus(true);
+        }
+        else{
+            preferenceStorage.setLoggingInStatus(false);
+        }
+        checked= false;
+
+    }
 
     private void openLogInDialog(){
         final BottomSheetDialog bottomsheetdialog = new BottomSheetDialog(AuthenticationActivity.this);
@@ -132,10 +157,8 @@ public class AuthenticationActivity extends AppCompatActivity {
                     sign_in_password.setError("Please enter password");
                 }
                 else{
-                    if(preferenceStorage.authenticate(
-                            sign_in_email.getText().toString().trim(),
-                            sign_in_password.getText().toString().trim()
-                    )) {
+                    if(preferenceStorage.authenticate(sign_in_email.getText().toString().trim(), sign_in_password.getText().toString().trim())) {
+
                         preferenceStorage.setLoggingInStatus(true);
                         Intent intent = new Intent(AuthenticationActivity.this, MainActivity.class);
                         startActivity(intent);
@@ -144,12 +167,14 @@ public class AuthenticationActivity extends AppCompatActivity {
                     else{
                         Toast.makeText(AuthenticationActivity.this, "Your credentials do not match ", Toast.LENGTH_SHORT).show();
                     }
-
                 }
             }
 
         });
+
         bottomsheetdialog.show();
 
     }
+
+
 }

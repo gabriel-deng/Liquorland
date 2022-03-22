@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="144dp"
+        android:layout_marginBottom="364dp"
         android:background="@drawable/rounded_corners"
         android:text="CheckOut"
         android:textColor="@color/white"

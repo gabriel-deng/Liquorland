@@ -16,21 +16,13 @@
         android:id="@+id/navigation_brands"
         android:name="com.example.liquorland.ui.brands.BrandsFragment"
         android:label="@string/title_Brands"
-        tools:layout="@layout/brands_fragment">
-        <action
-            android:id="@+id/action_navigation_brands_to_itemFragment"
-             />
-    </fragment>
+        tools:layout="@layout/brands_fragment"/>
     <fragment
         android:id="@+id/navigation_cart"
         android:name="com.example.liquorland.ui.cart.CartFragment"
         android:label="@string/title_cart"
         tools:layout="@layout/cart_fragment" />
-    <fragment
-        android:name="com.example.liquorland.ItemDetail"
-        android:label="fragment_item"
-        tools:layout="@layout/fragment_item"
-        android:id="@+id/itemfragment"/>
+
     <fragment
         android:id="@+id/navigation_pay"
         android:name="com.example.liquorland.PayMethodFragment"
@@ -39,11 +31,16 @@
     <fragment
         android:id="@+id/navigation_checkout"
         android:name="com.example.liquorland.Checkout"
-        android:label="fragment_checkout"
+        android:label="Checkout"
         tools:layout="@layout/fragment_checkout" />
     <activity
         android:id="@+id/authenticationActivity"
         android:name="com.example.liquorland.AuthenticationActivity"
         android:label="activity_authentication"
         tools:layout="@layout/activity_authentication" />
+    <fragment
+        android:id="@+id/itemDetailFragment"
+        android:name="com.example.liquorland.ui.ItemDetailFragment"
+        android:label="Product's Detail"
+        tools:layout="@layout/fragment_item_detail" />
 </navigation>
