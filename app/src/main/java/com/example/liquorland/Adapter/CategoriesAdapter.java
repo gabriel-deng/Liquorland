@@ -4,13 +4,13 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.liquorland.Models.Category;
 import com.example.liquorland.R;
+import com.google.android.material.chip.Chip;
 
 import java.util.List;
 
@@ -40,24 +40,25 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Vi
 
     @Override
     public void onBindViewHolder(@NonNull CategoriesAdapter.ViewHolder holder, int position) {
-
-      holder.category_name.setText(categories.get(position).getCategory_name());
-      holder.position=holder.getAdapterPosition();
+        Category category= categories.get(position);
+        holder.category_name.setText(categories.get(position).getCategory_name());
+        holder.position=holder.getAdapterPosition();
     }
 
     @Override
     public int getItemCount() {
-        return categories.size();
+       return categories.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView category_name;
+      Chip category_name;
         Integer position;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             category_name=itemView.findViewById(R.id.txt_category_name);
+
         }
     }
 }

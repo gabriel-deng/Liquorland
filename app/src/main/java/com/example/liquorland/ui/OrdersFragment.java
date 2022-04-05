@@ -1,19 +1,28 @@
-package com.example.liquorland;
+package com.example.liquorland.ui;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+
+import com.example.liquorland.R;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link PayMethodFragment#newInstance} factory method to
+ * Use the {@link OrdersFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class PayMethodFragment extends Fragment {
+public class OrdersFragment extends Fragment {
+
+    Button button;
+    View root;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -24,7 +33,7 @@ public class PayMethodFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public PayMethodFragment() {
+    public OrdersFragment() {
         // Required empty public constructor
     }
 
@@ -34,11 +43,11 @@ public class PayMethodFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment PayMethodFragment.
+     * @return A new instance of fragment OrdersFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static PayMethodFragment newInstance(String param1, String param2) {
-        PayMethodFragment fragment = new PayMethodFragment();
+    public static OrdersFragment newInstance(String param1, String param2) {
+        OrdersFragment fragment = new OrdersFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -59,6 +68,18 @@ public class PayMethodFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_pay_method, container, false);
+
+
+        root =inflater.inflate(R.layout.fragment_orders, container, false);
+        button=root.findViewById(R.id.btn_button3);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(requireView()).navigate(R.id.navigation_product_form);
+            }
+        });
+
+        return root;
     }
+
 }

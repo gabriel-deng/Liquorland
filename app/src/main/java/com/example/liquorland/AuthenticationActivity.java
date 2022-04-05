@@ -1,10 +1,7 @@
 package com.example.liquorland;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.ActivityNotFoundException;
+import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -12,41 +9,43 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.liquorland.ui.brands.BrandsFragment;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.liquorland.utils.PreferenceStorage;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.textfield.TextInputEditText;
 
 public class AuthenticationActivity extends AppCompatActivity {
-    TextView signup;
+    TextView signin;
     TextInputEditText firstname, lastname,password,confirm ,emailaddress;
     Button login;
     PreferenceStorage preferenceStorage;
+    Context context;
 
     CheckBox status;
-
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_authentication);
+        final   BottomSheetDialog bottomsheetdialog = new BottomSheetDialog(AuthenticationActivity.this);
+        bottomsheetdialog.setContentView(R.layout.sign_in);
 
         firstname= findViewById(R.id.txt_firstname);
         lastname= findViewById(R.id.txt_lastname);
         emailaddress= findViewById(R.id.txt_email);
         password=findViewById(R.id.txt_password);
         confirm= findViewById(R.id.txt_confirm);
-        signup= findViewById(R.id.txt_sign_up);
-
+        signin= findViewById(R.id.txt_sign_in);
+        status=findViewById(R.id.txt_status);
         login= findViewById(R.id.btn_login);
+
 
         preferenceStorage= new PreferenceStorage(this);
 
-        status=findViewById(R.id.txt_status);
 
-        signup.setOnClickListener(new View.OnClickListener() {
+
+        signin.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -73,16 +72,21 @@ public class AuthenticationActivity extends AppCompatActivity {
                         password.getText().toString().trim()
                     );
 
-                    preferenceStorage.setLoggingInStatus(true);
 
-                Toast.makeText(AuthenticationActivity.this, "Successfully created your account", Toast.LENGTH_SHORT).show();
-                Intent intent= new Intent(AuthenticationActivity.this, MainActivity.class);
-                    startActivity(intent);
-                finish();
+                        preferenceStorage.setLoggingInStatus(true);
 
-                }
+                        Intent intent= new Intent(AuthenticationActivity.this, MainActivity.class);
+                        Toast.makeText(AuthenticationActivity.this, "Successfully created your account", Toast.LENGTH_SHORT).show();
+
+                        startActivity(intent);
+                        finish();
+
+                    }
+
             }
         });
+
+
     }
 
     public  boolean validateInputs(){
@@ -123,27 +127,19 @@ public class AuthenticationActivity extends AppCompatActivity {
 
         return response;
     }
-    public void onCheckboxClicked(View view){
-        boolean checked= status.isChecked();
 
-        if(status.isChecked()){
-            preferenceStorage.setLoggingInStatus(true);
-        }
-        else{
-            preferenceStorage.setLoggingInStatus(false);
-        }
-        checked= false;
-
-    }
 
     private void openLogInDialog(){
-        final BottomSheetDialog bottomsheetdialog = new BottomSheetDialog(AuthenticationActivity.this);
+        final   BottomSheetDialog bottomsheetdialog = new BottomSheetDialog(AuthenticationActivity.this);
         bottomsheetdialog.setContentView(R.layout.sign_in);
 
         Button sign_in= bottomsheetdialog.findViewById(R.id.btn_sign_in);
 
         TextInputEditText sign_in_email = bottomsheetdialog.findViewById(R.id.txt_signin_email);
         TextInputEditText sign_in_password = bottomsheetdialog.findViewById(R.id.txt_signin_password);
+
+        TextView singup= bottomsheetdialog.findViewById(R.id.txt_signup);
+
 
         sign_in.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -174,7 +170,13 @@ public class AuthenticationActivity extends AppCompatActivity {
 
         bottomsheetdialog.show();
 
-    }
+        singup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                bottomsheetdialog.dismiss();
+            }
+        });
 
+    }
 
 }

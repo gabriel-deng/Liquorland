@@ -16,9 +16,11 @@
         android:icon="@drawable/ic_shopping_cart"
         android:title="@string/title_cart" />
 
+
     <item
-        android:id="@+id/navigation_checkout"
-        android:icon="@drawable/ic_checkout"
-        android:title="Checkout" />
+        android:id="@+id/navigation_orders"
+        android:icon="@drawable/ic_orders"
+        android:title="Orders" />
+
 
 </menu>

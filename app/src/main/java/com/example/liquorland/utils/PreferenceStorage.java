@@ -46,6 +46,10 @@ public class PreferenceStorage {
         return myFile.getString(USER_EMAIL, "BUYER");
     }
 
+    public  String getUserFirstname(){
+        return myFile.getString(USER_FIRSTNAME, "USER");
+    }
+
     public boolean authenticate(String email, String password) {
         String current_email = getUserEmail();
         String current_password = myFile.getString(USER_PASSWORD, SHARED_PREF_NAME);

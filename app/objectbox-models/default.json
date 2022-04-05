@@ -1,0 +1,81 @@
+{
+  "_note1": "KEEP THIS FILE! Check it into a version control system (VCS) like git.",
+  "_note2": "ObjectBox manages crucial IDs for your object model. See docs for details.",
+  "_note3": "If you have VCS merge conflicts, you must resolve them according to ObjectBox docs.",
+  "entities": [
+    {
+      "id": "1:7730289338342667322",
+      "lastPropertyId": "3:7108442654218777627",
+      "name": "Category",
+      "properties": [
+        {
+          "id": "2:7649405845206737926",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "3:7108442654218777627",
+          "name": "category_name",
+          "type": 9
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "2:8413107282449861452",
+      "lastPropertyId": "9:8003803208316333310",
+      "name": "Drink",
+      "properties": [
+        {
+          "id": "1:8588146833929173511",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:5402609553346302460",
+          "name": "drinkname",
+          "type": 9
+        },
+        {
+          "id": "3:3325052845993814768",
+          "name": "drinkvolume",
+          "type": 9
+        },
+        {
+          "id": "4:1222395202999120819",
+          "name": "drinkprice",
+          "type": 9
+        },
+        {
+          "id": "5:8954448932624320188",
+          "name": "category",
+          "type": 9
+        },
+        {
+          "id": "6:1020913656291137388",
+          "name": "drinkimage",
+          "type": 9
+        }
+      ],
+      "relations": []
+    }
+  ],
+  "lastEntityId": "2:8413107282449861452",
+  "lastIndexId": "0:0",
+  "lastRelationId": "0:0",
+  "lastSequenceId": "0:0",
+  "modelVersion": 5,
+  "modelVersionParserMinimum": 5,
+  "retiredEntityUids": [],
+  "retiredIndexUids": [],
+  "retiredPropertyUids": [
+    2048831463580384577,
+    1131799614155186226,
+    7572891394099213260,
+    8003803208316333310
+  ],
+  "retiredRelationUids": [],
+  "version": 1
+}

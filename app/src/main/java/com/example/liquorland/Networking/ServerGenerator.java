@@ -10,7 +10,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ServerGenerator {
     private static   ServerGenerator mInstance;
-    public static  final  String Baseurl= URLs.MAIN_URL;
+    public static  final  String Baseurl= URLs.BASE_URL;
     private Retrofit retrofit;
 
     public ServerGenerator() {

@@ -66,7 +66,7 @@ public class CartFragment extends Fragment implements View.OnClickListener {
 //                   fragmentTransaction.commit();
 
 
-                   Navigation.findNavController(root).navigate(R.id.authenticationActivity);
+                   Navigation.findNavController(root).navigate(R.id.navigation_checkout);
 
 //                    Intent intent= new Intent(getActivity(), AuthenticationActivity.class);
 //                    startActivity(intent);

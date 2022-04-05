@@ -1,17 +1,27 @@
 package com.example.liquorland.Models;
 
-import android.widget.ImageView;
-import android.widget.TextView;
+import io.objectbox.annotation.Entity;
+import io.objectbox.annotation.Id;
 
+@Entity
 public class Drink {
-    String drinkname, drinkvolume, drinkprice;
+
+  @Id public long id;
+
+    String drinkname, drinkvolume, drinkprice, category;
     String drinkimage;
 
-    public Drink(String drinkname, String drinkvolume, String drinkprice, String drinkimage) {
+    public Drink(String drinkname, String drinkvolume, String drinkprice, String category, String drinkimage, String category_name) {
         this.drinkname = drinkname;
         this.drinkvolume = drinkvolume;
         this.drinkprice = drinkprice;
+        this.category = category;
         this.drinkimage = drinkimage;
+
+    }
+
+    public Drink(String drinkname) {
+        this.drinkname = drinkname;
     }
 
     public Drink() {
@@ -41,6 +51,14 @@ public class Drink {
         this.drinkprice = drinkprice;
     }
 
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
     public String getDrinkimage() {
         return drinkimage;
     }
@@ -48,4 +66,5 @@ public class Drink {
     public void setDrinkimage(String drinkimage) {
         this.drinkimage = drinkimage;
     }
+
 }

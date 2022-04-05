@@ -24,11 +24,6 @@
         tools:layout="@layout/cart_fragment" />
 
     <fragment
-        android:id="@+id/navigation_pay"
-        android:name="com.example.liquorland.PayMethodFragment"
-        android:label="fragment_pay_method"
-        tools:layout="@layout/fragment_pay_method" />
-    <fragment
         android:id="@+id/navigation_checkout"
         android:name="com.example.liquorland.Checkout"
         android:label="Checkout"
@@ -43,4 +38,14 @@
         android:name="com.example.liquorland.ui.ItemDetailFragment"
         android:label="Product's Detail"
         tools:layout="@layout/fragment_item_detail" />
+    <fragment
+        android:id="@+id/navigation_orders"
+        android:name="com.example.liquorland.ui.OrdersFragment"
+        android:label="Orders"
+        tools:layout="@layout/fragment_orders" />
+    <fragment
+        android:id="@+id/navigation_product_form"
+        android:name="com.example.liquorland.ui.ProductFormFragment"
+        android:label="Product Form"
+        tools:layout="@layout/fragment_product_form" />
 </navigation>
