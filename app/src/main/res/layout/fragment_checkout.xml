@@ -9,7 +9,7 @@
     tools:context=".Checkout">
 
     <ImageView
-        android:id="@+id/imageView8"
+        android:id="@+id/ic_back_cart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -43,7 +43,7 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
         android:textColor="#FFD700"
         app:layout_constraintEnd_toStartOf="@+id/imageView9"
-        app:layout_constraintStart_toEndOf="@+id/imageView8"
+        app:layout_constraintStart_toEndOf="@+id/ic_back_cart"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -51,7 +51,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
         android:padding="5dp"
         android:text="Delivery Address"
         android:textColor="@color/white"
@@ -63,7 +62,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         android:padding="5dp"
         android:text="Paying Method"
         android:textColor="@color/white"
@@ -75,7 +73,6 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         android:src="@drawable/m_pesa_logo"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView10" />
@@ -121,7 +118,6 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         android:src="@drawable/_a1d2dc54ac6b00ff574e292"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView18" />
@@ -143,7 +139,6 @@
         android:id="@+id/textView20"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:padding="5dp"
         android:text="My Cart"
         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
@@ -154,21 +149,21 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/checkout_recyclerview"
-        android:layout_width="0dp"
-        android:layout_height="150dp"
+        android:layout_width="401dp"
+        android:layout_height="285dp"
         android:layout_marginStart="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView20"
         tools:itemCount="1"
-        tools:listitem="@layout/item_drink" />
+        tools:listitem="@layout/cart_item" />
 
     <TextView
         android:id="@+id/textView21"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:padding="5dp"
+        android:layout_marginStart="16dp"
+        android:padding="10dp"
         android:text="Total Amount"
         android:textColor="#FFD700"
         app:layout_constraintStart_toStartOf="parent"
@@ -179,7 +174,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
-        android:padding="5dp"
+        android:padding="10dp"
         android:text="Ksh 12,000"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="@+id/textView21"
@@ -190,7 +185,6 @@
         android:id="@+id/button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
         android:background="@drawable/rounded_corners"
         android:text="Pay Now"
         android:textColor="@color/white"
@@ -204,7 +198,6 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:padding="5dp"
         app:layout_constraintEnd_toEndOf="parent"

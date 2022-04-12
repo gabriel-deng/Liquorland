@@ -5,7 +5,7 @@
   "entities": [
     {
       "id": "1:7730289338342667322",
-      "lastPropertyId": "2:7649405845206737926",
+      "lastPropertyId": "3:7108442654218777627",
       "name": "Category",
       "properties": [
         {
@@ -13,6 +13,11 @@
           "name": "id",
           "type": 6,
           "flags": 1
+        },
+        {
+          "id": "3:7108442654218777627",
+          "name": "category_name",
+          "type": 9
         }
       ],
       "relations": []
@@ -55,9 +60,48 @@
         }
       ],
       "relations": []
+    },
+    {
+      "id": "3:409456051806099621",
+      "lastPropertyId": "6:6854436218994372427",
+      "name": "CartItem",
+      "properties": [
+        {
+          "id": "1:1895041344566420882",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:1260045357635047276",
+          "name": "drinkname",
+          "type": 9
+        },
+        {
+          "id": "3:8413686114356133415",
+          "name": "drinkvolume",
+          "type": 9
+        },
+        {
+          "id": "4:2828900394127069636",
+          "name": "drinkprice",
+          "type": 9
+        },
+        {
+          "id": "5:1303220079213278227",
+          "name": "category",
+          "type": 9
+        },
+        {
+          "id": "6:6854436218994372427",
+          "name": "drinkimage",
+          "type": 9
+        }
+      ],
+      "relations": []
     }
   ],
-  "lastEntityId": "2:8413107282449861452",
+  "lastEntityId": "3:409456051806099621",
   "lastIndexId": "0:0",
   "lastRelationId": "0:0",
   "lastSequenceId": "0:0",

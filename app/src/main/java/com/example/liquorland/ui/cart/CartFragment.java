@@ -1,29 +1,37 @@
 package com.example.liquorland.ui.cart;
 
-import androidx.lifecycle.ViewModelProvider;
-
 import android.content.Context;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.liquorland.Adapter.CartAdapter;
+import com.example.liquorland.Models.CartItem;
 import com.example.liquorland.R;
 import com.example.liquorland.databinding.CartFragmentBinding;
+
+import java.util.ArrayList;
 
 public class CartFragment extends Fragment implements View.OnClickListener {
 
 
     private CartViewModel cartViewModel;
     private CartFragmentBinding binding;
-    Context context;
+    Context context= getContext();
+
+    ArrayList<CartItem> items= new ArrayList<>();
+    RecyclerView cartrecyclerview;
+    CartAdapter cartAdapter;
 
     Button button;
 
@@ -33,13 +41,17 @@ public class CartFragment extends Fragment implements View.OnClickListener {
 
     public View onCreateView(@NonNull LayoutInflater inflater, @NonNull ViewGroup container,
                              Bundle savedInstanceState) {
-
-        //view= getView();
-
         cartViewModel= new ViewModelProvider(this).get(CartViewModel.class);
-
         binding= CartFragmentBinding.inflate(inflater, container, false);
         root= binding.getRoot();
+        ArrayList<CartItem> items= samples();
+
+        cartrecyclerview=root.findViewById(R.id.cart_recyclerview);
+        cartrecyclerview.setNestedScrollingEnabled(true);
+        cartrecyclerview.setLayoutManager(new LinearLayoutManager(context));
+        cartAdapter= new CartAdapter(items, context);
+        cartrecyclerview.setAdapter(cartAdapter);
+
 
         return root;
 
@@ -88,5 +100,14 @@ public class CartFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
 
+    }
+    private ArrayList<CartItem> samples(){
+        ArrayList<CartItem> items= new ArrayList<>();
+        items.add(new CartItem("xdvdfgg", "dkkefkef","ksefjelsd;", "ncjsdknvr", ""));
+        items.add(new CartItem("xddddvdfgg", "dkkefkef","ksefjelsd;", "ncjsdknvr", ""));
+        items.add(new CartItem("xddddvdfgg", "dkkefkef","ksefjelsd;", "ncjsdknvr", ""));
+        items.add(new CartItem("xddddvdfgg", "dkkefkef","ksefjelsd;", "ncjsdknvr", ""));
+        items.add(new CartItem("xddddvdfgg", "dkkefkef","ksefjelsd;", "ncjsdknvr", ""));
+        return items;
     }
 }

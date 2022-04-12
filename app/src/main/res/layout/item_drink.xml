@@ -19,7 +19,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/ic_drink_image"
+            android:id="@+id/ic_cart_drink_image"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/black"
@@ -28,7 +28,7 @@
     </androidx.cardview.widget.CardView>
 
     <TextView
-        android:id="@+id/txt_drink_name"
+        android:id="@+id/txt_cart_drink_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -44,7 +44,7 @@
         app:layout_constraintTop_toBottomOf="@+id/cardView2" />
 
     <TextView
-        android:id="@+id/txt_drink_volume"
+        android:id="@+id/txt_cart_drink_volume"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -55,10 +55,10 @@
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_drink_name" />
+        app:layout_constraintTop_toBottomOf="@+id/txt_cart_drink_name" />
 
     <TextView
-        android:id="@+id/txt_drink_price"
+        android:id="@+id/txt_cart_drink_price"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -71,18 +71,18 @@
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_drink_volume" />
+        app:layout_constraintTop_toBottomOf="@+id/txt_cart_drink_volume" />
 
     <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/imageView3"
+        android:id="@+id/ic_remove_fromcart"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_marginStart="56dp"
         android:background="@drawable/ic_add_item"
         android:backgroundTint="@color/white"
-        app:layout_constraintBottom_toBottomOf="@+id/txt_drink_price"
-        app:layout_constraintStart_toStartOf="@+id/txt_drink_price"
-        app:layout_constraintTop_toBottomOf="@+id/txt_drink_volume"
+        app:layout_constraintBottom_toBottomOf="@+id/txt_cart_drink_price"
+        app:layout_constraintStart_toStartOf="@+id/txt_cart_drink_price"
+        app:layout_constraintTop_toBottomOf="@+id/txt_cart_drink_volume"
         app:layout_constraintVertical_bias="1.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

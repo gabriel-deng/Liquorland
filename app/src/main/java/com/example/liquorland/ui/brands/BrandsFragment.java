@@ -23,43 +23,35 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.liquorland.Adapter.BrandsAdapter;
-import com.example.liquorland.Adapter.DrinksAdapter;
-import com.example.liquorland.Models.Category;
 import com.example.liquorland.Models.Drink;
 import com.example.liquorland.ObjectBox;
 import com.example.liquorland.R;
 import com.example.liquorland.databinding.BrandsFragmentBinding;
-import com.example.liquorland.onItemClickedListener;
+import com.example.liquorland.ui.ItemDetailFragment;
 
 import java.util.ArrayList;
 
 import io.objectbox.Box;
 
-public class BrandsFragment extends Fragment implements onItemClickedListener {
+public class BrandsFragment extends Fragment  {
 
     private BrandsViewModel brandsViewModel;
     private BrandsFragmentBinding binding;
 
     Context context= getContext();
-    Boolean myCondition;
 
-    ArrayList<Drink> drinks= new ArrayList<>();
-    ArrayList<Category> categories= new ArrayList<>();
+
+    ArrayList<Drink> drinks;
     BrandsAdapter brandsAdapter;
     RecyclerView brandsrecyclerview;
-    RecyclerView categoriesrecyclerview;
-    DrinksAdapter drinksAdapter;
-    RecyclerView drinkrecyclerview;
 
     Box<Drink> productname;
 
-    TextView  champagne, brandy, tequila, beer, cider, rum, cognac, wines, spirits, whisky, vodka, gin ;
+    TextView  champagne, brandy, tequila, beer, cider, rum, cognac, wines, spirits, whisky, vodka, gin;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-
-    //    ArrayList<Drink> drinks= sampledrinks();
 
 
         brandsViewModel= new ViewModelProvider(this).get(BrandsViewModel.class);
@@ -69,21 +61,16 @@ public class BrandsFragment extends Fragment implements onItemClickedListener {
 
         productname= ObjectBox.get().boxFor(Drink.class);
 
-
- //
-//        categoryrecyclerview.setNestedScrollingEnabled(true);
-//        categoryrecyclerview.setLayoutManager(new GridLayoutManager(context,2));
-//
-//        brandsAdapter= new brandsAdapter(categories,context);
-//        categoryrecyclerview.setAdapter(brandsAdapter);
         vodka=root.findViewById(R.id.txt_vodka);
         vodka.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ShowVodkaList();
+
             }
         });
         whisky=root.findViewById(R.id.txt_whisky);
+
         whisky.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -156,6 +143,7 @@ public class BrandsFragment extends Fragment implements onItemClickedListener {
         });
 
         champagne=root.findViewById(R.id.txt_champagne);
+
         champagne.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -165,20 +153,9 @@ public class BrandsFragment extends Fragment implements onItemClickedListener {
         return root;
     }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-
-        binding= null;
-    }
-
-
-
-    public void Showchampagne(){
+   public void Showchampagne(){
         LayoutInflater inflater = (LayoutInflater)getContext().getSystemService(LAYOUT_INFLATER_SERVICE);
         View popupView = inflater.inflate(R.layout.brands_list, null);
-
-         //ArrayList<Drink> drinks= trialData();
 
         drinks= (ArrayList<Drink>) productname.getAll();
         int width = LinearLayout.LayoutParams.WRAP_CONTENT;
@@ -186,32 +163,34 @@ public class BrandsFragment extends Fragment implements onItemClickedListener {
         boolean focusable = true;
         final PopupWindow popupWindow = new PopupWindow(popupView, width, height, focusable);
         popupWindow.showAtLocation(champagne, Gravity.START, 0, 0);
-
+        popupWindow.update(champagne, width, height);
 
         brandsrecyclerview=popupView.findViewById(R.id.brands_recyclerview);
         brandsrecyclerview.setNestedScrollingEnabled(true);
-        brandsrecyclerview.setLayoutManager(new GridLayoutManager(getContext(), LinearLayoutManager.VERTICAL));
-        brandsAdapter= new BrandsAdapter(drinks,context);
+        brandsrecyclerview.setLayoutManager(new LinearLayoutManager(context));
+        brandsAdapter= new BrandsAdapter(drinks,context, this);
         brandsrecyclerview.setAdapter(brandsAdapter);
+
+
 
     }
     public void ShowBeerList(){
         LayoutInflater inflater = (LayoutInflater)getContext().getSystemService(LAYOUT_INFLATER_SERVICE);
         View popupView = inflater.inflate(R.layout.brands_list, null);
 
-     //   ArrayList<Drink> drinks= trialData();
+
         drinks= (ArrayList<Drink>) productname.getAll();
         int width = LinearLayout.LayoutParams.WRAP_CONTENT;
         int height = LinearLayout.LayoutParams.WRAP_CONTENT;
         boolean focusable = true;
         final PopupWindow popupWindow = new PopupWindow(popupView, width, height, focusable);
-        popupWindow.showAtLocation(beer, Gravity.START, 0, 0);
+        popupWindow.showAtLocation(popupView, Gravity.NO_GRAVITY, 0, 0);
 
 
         brandsrecyclerview=popupView.findViewById(R.id.brands_recyclerview);
         brandsrecyclerview.setNestedScrollingEnabled(true);
         brandsrecyclerview.setLayoutManager(new GridLayoutManager(getContext(), LinearLayoutManager.VERTICAL));
-        brandsAdapter= new BrandsAdapter(drinks, context);
+        brandsAdapter= new BrandsAdapter(drinks, context, this);
         brandsrecyclerview.setAdapter(brandsAdapter);
 
 
@@ -219,7 +198,7 @@ public class BrandsFragment extends Fragment implements onItemClickedListener {
     public void ShowBrandyList() {
         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(LAYOUT_INFLATER_SERVICE);
         View popupView = inflater.inflate(R.layout.brands_list, null);
-     //   ArrayList<Drink> drinks= trialData();
+
         drinks= (ArrayList<Drink>) productname.getAll();
 
         int width = LinearLayout.LayoutParams.WRAP_CONTENT;
@@ -232,7 +211,7 @@ public class BrandsFragment extends Fragment implements onItemClickedListener {
         brandsrecyclerview = popupView.findViewById(R.id.brands_recyclerview);
         brandsrecyclerview.setNestedScrollingEnabled(true);
         brandsrecyclerview.setLayoutManager(new GridLayoutManager(getContext(), LinearLayoutManager.VERTICAL));
-        brandsAdapter = new BrandsAdapter(drinks, context);
+        brandsAdapter = new BrandsAdapter(drinks, context, this);
         brandsrecyclerview.setAdapter(brandsAdapter);
 
 
@@ -241,7 +220,7 @@ public class BrandsFragment extends Fragment implements onItemClickedListener {
         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(LAYOUT_INFLATER_SERVICE);
         View popupView = inflater.inflate(R.layout.brands_list, null);
 
-      //  ArrayList<Drink> drinks= trialData();
+
         drinks= (ArrayList<Drink>) productname.getAll();
         int width = LinearLayout.LayoutParams.WRAP_CONTENT;
         int height = LinearLayout.LayoutParams.WRAP_CONTENT;
@@ -253,7 +232,7 @@ public class BrandsFragment extends Fragment implements onItemClickedListener {
         brandsrecyclerview = popupView.findViewById(R.id.brands_recyclerview);
         brandsrecyclerview.setNestedScrollingEnabled(true);
         brandsrecyclerview.setLayoutManager(new GridLayoutManager(getContext(), LinearLayoutManager.VERTICAL));
-        brandsAdapter = new BrandsAdapter(drinks, context);
+        brandsAdapter = new BrandsAdapter(drinks, context, this);
         brandsrecyclerview.setAdapter(brandsAdapter);
 
 
@@ -262,7 +241,7 @@ public class BrandsFragment extends Fragment implements onItemClickedListener {
     public void ShowTequilaList() {
         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(LAYOUT_INFLATER_SERVICE);
         View popupView = inflater.inflate(R.layout.brands_list, null);
-     //   ArrayList<Drink> drinks= trialData();
+
         drinks= (ArrayList<Drink>) productname.getAll();
 
         int width = LinearLayout.LayoutParams.WRAP_CONTENT;
@@ -275,7 +254,7 @@ public class BrandsFragment extends Fragment implements onItemClickedListener {
         brandsrecyclerview = popupView.findViewById(R.id.brands_recyclerview);
         brandsrecyclerview.setNestedScrollingEnabled(true);
         brandsrecyclerview.setLayoutManager(new GridLayoutManager(getContext(), LinearLayoutManager.VERTICAL));
-        brandsAdapter = new BrandsAdapter(drinks, context);
+        brandsAdapter = new BrandsAdapter(drinks, context, this);
         brandsrecyclerview.setAdapter(brandsAdapter);
 
 
@@ -284,7 +263,7 @@ public class BrandsFragment extends Fragment implements onItemClickedListener {
     public void ShowRumList() {
         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(LAYOUT_INFLATER_SERVICE);
         View popupView = inflater.inflate(R.layout.brands_list, null);
-     //   ArrayList<Drink> drinks= trialData();
+
         drinks= (ArrayList<Drink>) productname.getAll();
 
         int width = LinearLayout.LayoutParams.WRAP_CONTENT;
@@ -297,7 +276,7 @@ public class BrandsFragment extends Fragment implements onItemClickedListener {
         brandsrecyclerview = popupView.findViewById(R.id.brands_recyclerview);
         brandsrecyclerview.setNestedScrollingEnabled(true);
         brandsrecyclerview.setLayoutManager(new GridLayoutManager(getContext(), LinearLayoutManager.VERTICAL));
-        brandsAdapter = new BrandsAdapter(drinks, context);
+        brandsAdapter = new BrandsAdapter(drinks, context, this);
         brandsrecyclerview.setAdapter(brandsAdapter);
 
 
@@ -305,7 +284,7 @@ public class BrandsFragment extends Fragment implements onItemClickedListener {
     public void ShowCognacList() {
         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(LAYOUT_INFLATER_SERVICE);
         View popupView = inflater.inflate(R.layout.brands_list, null);
-    //    ArrayList<Drink> drinks= trialData();
+
         drinks= (ArrayList<Drink>) productname.getAll();
 
         int width = LinearLayout.LayoutParams.WRAP_CONTENT;
@@ -318,8 +297,9 @@ public class BrandsFragment extends Fragment implements onItemClickedListener {
         brandsrecyclerview = popupView.findViewById(R.id.brands_recyclerview);
         brandsrecyclerview.setNestedScrollingEnabled(true);
         brandsrecyclerview.setLayoutManager(new GridLayoutManager(getContext(), LinearLayoutManager.VERTICAL));
-        brandsAdapter = new BrandsAdapter(drinks, context);
+        brandsAdapter = new BrandsAdapter(drinks, context, this);
         brandsrecyclerview.setAdapter(brandsAdapter);
+
 
 
     }
@@ -333,13 +313,13 @@ public class BrandsFragment extends Fragment implements onItemClickedListener {
         boolean focusable = true;
         final PopupWindow popupWindow = new PopupWindow(popupView, width, height, focusable);
         popupWindow.showAtLocation(wines, Gravity.START, 0, 0);
-     //   ArrayList<Drink> drinks= trialData();
+
         drinks= (ArrayList<Drink>) productname.getAll();
 
         brandsrecyclerview = popupView.findViewById(R.id.brands_recyclerview);
         brandsrecyclerview.setNestedScrollingEnabled(true);
         brandsrecyclerview.setLayoutManager(new GridLayoutManager(getContext(), LinearLayoutManager.VERTICAL));
-        brandsAdapter = new BrandsAdapter(drinks, context);
+        brandsAdapter = new BrandsAdapter(drinks, context, this);
         brandsrecyclerview.setAdapter(brandsAdapter);
 
 
@@ -347,7 +327,7 @@ public class BrandsFragment extends Fragment implements onItemClickedListener {
     public void ShowSpiritsList() {
         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(LAYOUT_INFLATER_SERVICE);
         View popupView = inflater.inflate(R.layout.brands_list, null);
-     //   ArrayList<Drink> drinks= trialData();
+
         drinks= (ArrayList<Drink>) productname.getAll();
         int width = LinearLayout.LayoutParams.WRAP_CONTENT;
         int height = LinearLayout.LayoutParams.WRAP_CONTENT;
@@ -359,7 +339,7 @@ public class BrandsFragment extends Fragment implements onItemClickedListener {
         brandsrecyclerview = popupView.findViewById(R.id.brands_recyclerview);
         brandsrecyclerview.setNestedScrollingEnabled(true);
         brandsrecyclerview.setLayoutManager(new GridLayoutManager(getContext(), LinearLayoutManager.VERTICAL));
-        brandsAdapter = new BrandsAdapter(drinks, context);
+        brandsAdapter = new BrandsAdapter(drinks, context, this);
         brandsrecyclerview.setAdapter(brandsAdapter);
 
 
@@ -367,7 +347,7 @@ public class BrandsFragment extends Fragment implements onItemClickedListener {
     public void ShowWhiskyList() {
         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(LAYOUT_INFLATER_SERVICE);
         View popupView = inflater.inflate(R.layout.brands_list, null);
-    //    ArrayList<Drink> drinks= trialData();
+
         drinks= (ArrayList<Drink>) productname.getAll();
 
         int width = LinearLayout.LayoutParams.WRAP_CONTENT;
@@ -380,7 +360,7 @@ public class BrandsFragment extends Fragment implements onItemClickedListener {
         brandsrecyclerview = popupView.findViewById(R.id.brands_recyclerview);
         brandsrecyclerview.setNestedScrollingEnabled(true);
         brandsrecyclerview.setLayoutManager(new GridLayoutManager(getContext(), LinearLayoutManager.VERTICAL));
-        brandsAdapter = new BrandsAdapter(drinks, context);
+        brandsAdapter = new BrandsAdapter(drinks, context, this);
         brandsrecyclerview.setAdapter(brandsAdapter);
 
 
@@ -388,7 +368,7 @@ public class BrandsFragment extends Fragment implements onItemClickedListener {
     public void ShowGinList() {
         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(LAYOUT_INFLATER_SERVICE);
         View popupView = inflater.inflate(R.layout.brands_list, null);
-    //    ArrayList<Drink> drinks= trialData();
+
         drinks= (ArrayList<Drink>) productname.getAll();
 
         int width = LinearLayout.LayoutParams.WRAP_CONTENT;
@@ -400,7 +380,7 @@ public class BrandsFragment extends Fragment implements onItemClickedListener {
         brandsrecyclerview = popupView.findViewById(R.id.brands_recyclerview);
         brandsrecyclerview.setNestedScrollingEnabled(true);
         brandsrecyclerview.setLayoutManager(new GridLayoutManager(getContext(), LinearLayoutManager.VERTICAL));
-        brandsAdapter = new BrandsAdapter(drinks, context);
+        brandsAdapter = new BrandsAdapter(drinks, context, this);
         brandsrecyclerview.setAdapter(brandsAdapter);
 
 
@@ -409,7 +389,7 @@ public class BrandsFragment extends Fragment implements onItemClickedListener {
 
         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(LAYOUT_INFLATER_SERVICE);
         View popupView = inflater.inflate(R.layout.brands_list, null);
-   //     ArrayList<Drink> drinks= trialData();
+
         drinks= (ArrayList<Drink>) productname.getAll();
 
         int width = LinearLayout.LayoutParams.WRAP_CONTENT;
@@ -422,18 +402,20 @@ public class BrandsFragment extends Fragment implements onItemClickedListener {
         brandsrecyclerview = popupView.findViewById(R.id.brands_recyclerview);
         brandsrecyclerview.setNestedScrollingEnabled(true);
         brandsrecyclerview.setLayoutManager(new GridLayoutManager(getContext(), LinearLayoutManager.VERTICAL));
-        brandsAdapter = new BrandsAdapter(drinks, context);
+        brandsAdapter = new BrandsAdapter(drinks, context, this);
         brandsrecyclerview.setAdapter(brandsAdapter);
+    }
+    
+    public  void loaddrinksdetails(Drink drink, Integer position){
+        Bundle bundle= new Bundle();
+        bundle.putString("drink name", drink.getDrinkname());
+        bundle.putString("drink price", drink.getDrinkprice());
+        bundle.putString("drink volume", drink.getDrinkvolume());
+        bundle.putString("drink image", drink.getDrinkimage());
+        ItemDetailFragment detailFragment = new ItemDetailFragment();
+        detailFragment.setArguments(bundle);
+        Navigation.findNavController(requireView()).navigate(R.id.itemDetailFragment, bundle);
 
 
     }
-
-
-
-    @Override
-    public void onitemclick(long data) {
-        Navigation.findNavController(requireView()).navigate(R.id.itemDetailFragment);
-
-    }
-
 }

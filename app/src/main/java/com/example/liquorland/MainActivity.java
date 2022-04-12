@@ -1,28 +1,26 @@
 package com.example.liquorland;
 
 import android.os.Bundle;
+import android.view.View;
 
-import com.example.liquorland.Adapter.DrinksAdapter;
-import com.example.liquorland.Models.Drink;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
+import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.example.liquorland.databinding.ActivityMainBinding;
-
-import io.objectbox.Box;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
 
 
     private ActivityMainBinding binding;
 
-    private Box<Drink> DrinksDetails;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +41,18 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(binding.navView, navController);
 
 
-         }
+        navController.addOnDestinationChangedListener(new NavController.OnDestinationChangedListener() {
+            @Override
+            public void onDestinationChanged(@NonNull NavController controller,
+                                             @NonNull NavDestination destination, @Nullable Bundle arguments) {
+                if(destination.getId() == R.id.navigation_checkout || destination.getId()== R.id.itemDetailFragment) {
+                    navView.setVisibility(View.GONE);
+                } else {
+                    navView.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+
+    }
 
 }

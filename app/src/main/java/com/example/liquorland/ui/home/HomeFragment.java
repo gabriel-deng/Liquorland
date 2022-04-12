@@ -22,6 +22,7 @@ import com.example.liquorland.Models.Drink;
 import com.example.liquorland.ObjectBox;
 import com.example.liquorland.R;
 import com.example.liquorland.databinding.FragmentHomeBinding;
+import com.example.liquorland.ui.ItemDetailFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,14 +57,12 @@ public class HomeFragment extends Fragment{
         drinks= (ArrayList<Drink>) displaydrinks.getAll();
 
 
-
-
         drinkrecyclerview= root.findViewById(R.id.drinks_recyclerview);
         drinkrecyclerview.setNestedScrollingEnabled(true);
         drinkrecyclerview.setHasFixedSize(true);
         drinkrecyclerview.setLayoutManager(new StaggeredGridLayoutManager(1,LinearLayoutManager.HORIZONTAL));
 
-        drinksAdapter= new DrinksAdapter(drinks, context);
+        drinksAdapter= new DrinksAdapter(drinks, context, this);
         drinkrecyclerview.setAdapter(drinksAdapter);
 
 
@@ -147,6 +146,18 @@ public class HomeFragment extends Fragment{
 //        return samples;
 
 //    }
+
+    public void goToDetails(Drink drink, Integer position){
+        Bundle bundle= new Bundle();
+        bundle.putString("Drink name", drinks.get(position).getDrinkname());
+        bundle.putString("Drink price", drinks.get(position).getDrinkprice());
+        bundle.putString("Drink volume", drinks.get(position).getDrinkvolume());
+        bundle.putString("Drink image", drinks.get(position).getDrinkimage());
+        ItemDetailFragment detailFragment = new ItemDetailFragment();
+        detailFragment.setArguments(bundle);
+        Navigation.findNavController(requireView()).navigate(R.id.itemDetailFragment, bundle);
+
+    }
 
 
 

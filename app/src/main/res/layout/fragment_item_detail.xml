@@ -57,7 +57,7 @@
         app:layout_constraintTop_toBottomOf="@+id/imageView4">
 
         <ImageView
-            android:id="@+id/imageView7"
+            android:id="@+id/ic_item_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:scaleType="fitXY"
@@ -69,7 +69,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:padding="10dp"
+        android:padding="20dp"
         android:text="Drink's Name"
         android:textColor="@color/white"
         app:layout_constraintStart_toStartOf="parent"
@@ -79,7 +79,7 @@
         android:id="@+id/txt_drinkprice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="10dp"
+        android:padding="20dp"
         android:text="Drink's Price"
         android:textColor="#FFD700"
         app:layout_constraintEnd_toEndOf="parent"
@@ -90,7 +90,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:padding="10dp"
+        android:padding="20dp"
         android:text="Drink's Volume"
         android:textColor="@color/white"
         app:layout_constraintStart_toStartOf="parent"
@@ -98,8 +98,8 @@
 
     <ImageView
         android:id="@+id/imageView13"
-        android:layout_width="15dp"
-        android:layout_height="15dp"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
         android:layout_marginEnd="8dp"
         android:background="@color/white"
         android:src="@drawable/ic_reviews"
@@ -112,7 +112,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
-        android:padding="5dp"
+        android:padding="10dp"
         android:text="4.6"
         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
         android:textColor="#ffffff"
@@ -125,7 +125,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:padding="5dp"
+        android:padding="10dp"
         android:text="No. of Reviews"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
@@ -139,40 +139,42 @@
         android:padding="10dp"
         android:text="Review"
         android:textColor="#FFD700"
+        app:layout_constraintBottom_toTopOf="@+id/textView16"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView13" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView13"
+        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
         android:id="@+id/textView16"
         android:layout_width="0dp"
         android:layout_height="50dp"
+        android:layout_marginBottom="16dp"
         android:padding="5dp"
         android:text="A sample review goes here"
         android:textColor="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/btn_add_cart"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView15" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/btn_add_cart"
         android:layout_width="241dp"
         android:layout_height="52dp"
-        android:layout_marginTop="16dp"
         android:backgroundTint="#3A3838"
         android:padding="5dp"
         android:text="ADD TO CART"
         android:textColor="@color/white"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView16" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
-        android:id="@+id/imageView14"
+        android:id="@+id/ic_add_cart"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:background="@color/white"
         android:src="@drawable/ic_add_item"
-        app:layout_constraintBottom_toBottomOf="@+id/button2"
-        app:layout_constraintStart_toEndOf="@+id/button2"
-        app:layout_constraintTop_toTopOf="@+id/button2" />
+        app:layout_constraintBottom_toBottomOf="@+id/btn_add_cart"
+        app:layout_constraintStart_toEndOf="@+id/btn_add_cart"
+        app:layout_constraintTop_toTopOf="@+id/btn_add_cart" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
