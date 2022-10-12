@@ -5,17 +5,36 @@
     android:id="@+id/frameLayout5"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#3A3838"
     tools:context=".ui.OrdersFragment">
 
-    <Button
-        android:id="@+id/btn_button3"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/orders_recyclerview"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="232dp"
-        android:padding="20dp"
-        android:text="Button"
-        android:textColor="@color/white"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:itemCount="20"
+        tools:listitem="@layout/order_item" />
+
+    <TextView
+        android:id="@+id/txt_no_orders"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="16dp"
+        android:text="You currently have no orders. Make purchases to view your orders"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textColor="@color/white"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.182" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

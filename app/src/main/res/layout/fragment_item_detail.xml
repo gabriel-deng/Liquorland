@@ -57,10 +57,9 @@
         app:layout_constraintTop_toBottomOf="@+id/imageView4">
 
         <ImageView
-            android:id="@+id/ic_item_image"
+            android:id="@+id/ic_drink_image_upload"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:scaleType="fitXY"
             android:src="@drawable/omid_armin_qvvq5vvmlu4_unsplash" />
     </androidx.cardview.widget.CardView>
 
@@ -168,7 +167,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
-        android:id="@+id/ic_add_cart"
+        android:id="@+id/ic_add_tocart"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:background="@color/white"
@@ -176,5 +175,25 @@
         app:layout_constraintBottom_toBottomOf="@+id/btn_add_cart"
         app:layout_constraintStart_toEndOf="@+id/btn_add_cart"
         app:layout_constraintTop_toTopOf="@+id/btn_add_cart" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:text="PRICE"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/txt_drinkprice"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:text="VOLUME"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/drinkvolume"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

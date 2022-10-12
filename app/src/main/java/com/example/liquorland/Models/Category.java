@@ -1,13 +1,15 @@
 package com.example.liquorland.Models;
 
-import io.objectbox.annotation.Entity;
-import io.objectbox.annotation.Id;
 
-@Entity
 public class Category {
 
-  @Id public long id;
+   public Integer id;
   String category_name;
+
+  public Category(int id, String category_name) {
+    this.id=id;
+    this.category_name = category_name;
+  }
 
   public Category() {
   }

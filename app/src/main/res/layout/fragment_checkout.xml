@@ -34,10 +34,8 @@
         android:id="@+id/textView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="100dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="100dp"
-        android:padding="5dp"
+        android:padding="10dp"
         android:text="CheckOut"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
@@ -51,7 +49,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:padding="5dp"
+        android:layout_marginTop="16dp"
+        android:padding="10dp"
         android:text="Delivery Address"
         android:textColor="@color/white"
         app:layout_constraintStart_toStartOf="parent"
@@ -62,7 +61,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:padding="5dp"
+        android:layout_marginTop="16dp"
+        android:padding="10dp"
         android:text="Paying Method"
         android:textColor="@color/white"
         app:layout_constraintStart_toStartOf="parent"
@@ -73,15 +73,16 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
         android:src="@drawable/m_pesa_logo"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView10" />
 
     <TextView
-        android:id="@+id/textView17"
+        android:id="@+id/txt_mpesa"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:padding="5dp"
+        android:padding="10dp"
         android:text="Using M-PESA"
         android:textAlignment="center"
         android:textColor="@color/white"
@@ -95,16 +96,16 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:src="@drawable/pngitem_5313537"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView10" />
 
     <TextView
-        android:id="@+id/textView18"
+        android:id="@+id/txt_equity"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:padding="5dp"
+        android:padding="10dp"
         android:text="Equity Gold Card"
         android:textAlignment="center"
         android:textColor="@color/white"
@@ -117,60 +118,42 @@
         android:id="@+id/imageView12"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="36dp"
         android:src="@drawable/_a1d2dc54ac6b00ff574e292"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView18" />
+        app:layout_constraintTop_toBottomOf="@+id/txt_equity" />
 
     <TextView
-        android:id="@+id/textView19"
+        android:id="@+id/txt_standardchartered"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:padding="5dp"
+        android:layout_marginTop="16dp"
+        android:padding="10dp"
         android:text="Stardard Chartered Platinum Card"
         android:textAlignment="center"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="@+id/imageView12"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/imageView12"
-        app:layout_constraintTop_toBottomOf="@+id/imageView11" />
-
-    <TextView
-        android:id="@+id/textView20"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:padding="5dp"
-        android:text="My Cart"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-        android:textColor="#FFD700"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView19" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/checkout_recyclerview"
-        android:layout_width="401dp"
-        android:layout_height="285dp"
-        android:layout_marginStart="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView20"
-        tools:itemCount="1"
-        tools:listitem="@layout/cart_item" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView11"
+        app:layout_constraintVertical_bias="0.765" />
 
     <TextView
         android:id="@+id/textView21"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
         android:padding="10dp"
         android:text="Total Amount"
         android:textColor="#FFD700"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/checkout_recyclerview" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView12" />
 
     <TextView
-        android:id="@+id/textView22"
+        android:id="@+id/txt_amont_display"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
@@ -182,13 +165,12 @@
         app:layout_constraintTop_toTopOf="@+id/textView21" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btn_PayButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@drawable/rounded_corners"
         android:text="Pay Now"
         android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView21" />
@@ -198,6 +180,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
         android:padding="5dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -205,6 +188,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView7">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/txt_address"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Input your address "

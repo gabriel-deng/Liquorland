@@ -1,85 +1,116 @@
 package com.example.liquorland.ui;
 
+import android.content.Context;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.liquorland.Adapter.OrdersAdapter;
+import com.example.liquorland.Models.Orders;
 import com.example.liquorland.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link OrdersFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.util.ArrayList;
+
 public class OrdersFragment extends Fragment {
 
-    Button button;
+
     View root;
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    TextView zero_orders;
+    ArrayList<Orders> orders= new ArrayList<>();
+    Context context=getContext();
+    RecyclerView OrdersRecyclerview;
+    OrdersAdapter ordersAdapter;
+    FirebaseAuth auth;
+    DatabaseReference ordersdb;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
     public OrdersFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment OrdersFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static OrdersFragment newInstance(String param1, String param2) {
-        OrdersFragment fragment = new OrdersFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+
+
+
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-
 
         root =inflater.inflate(R.layout.fragment_orders, container, false);
-        button=root.findViewById(R.id.btn_button3);
-        button.setOnClickListener(new View.OnClickListener() {
+
+        zero_orders= root.findViewById(R.id.txt_no_orders);
+        OrdersRecyclerview= root.findViewById(R.id.orders_recyclerview);
+        OrdersRecyclerview.setNestedScrollingEnabled(true);
+        OrdersRecyclerview.setLayoutManager(new LinearLayoutManager(context));
+
+        auth = FirebaseAuth.getInstance();
+        FirebaseUser mAuth = auth.getCurrentUser();
+
+        ordersdb= FirebaseDatabase.getInstance().getReference().child("Orders").child(mAuth.getUid());
+
+
+        ordersdb.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onClick(View v) {
-                Navigation.findNavController(requireView()).navigate(R.id.navigation_product_form);
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(orders !=null){
+                    orders.clear();
+                    for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                        Orders order= dataSnapshot.getValue(Orders.class);
+                        orders.add(order);
+                    }
+                    ordersAdapter= new OrdersAdapter(context, orders, OrdersFragment.this);
+                    OrdersRecyclerview.setAdapter(ordersAdapter);
+                    ordersAdapter.notifyDataSetChanged();
+                   }
+                else {
+                    OrdersRecyclerview.setVisibility(View.GONE);
+                    zero_orders.setVisibility(View.VISIBLE);
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+                Toast.makeText(getContext(), "Canceled because of "+ error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
 
+
         return root;
+    }
+
+    public void ViewSingleOrder(Orders orders){
+        Bundle bundle= new Bundle();
+        bundle.putString("Date", orders.getCreated_at());
+        bundle.putString("Ref Number", orders.getRef_number());
+        bundle.putString("Total Amount", orders.getPrice());
+        bundle.putString("Delivery Status", orders.getDelivery_status());
+
+        SingleOrderFragment singleOrderFragment= new SingleOrderFragment();
+        singleOrderFragment.setArguments(bundle);
+        Navigation.findNavController(requireView()).navigate(R.id.singleOrderFragment, bundle);
     }
 
 }

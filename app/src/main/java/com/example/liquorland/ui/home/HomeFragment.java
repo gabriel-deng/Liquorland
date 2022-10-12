@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,16 +19,24 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.example.liquorland.Adapter.DrinksAdapter;
+import com.example.liquorland.Models.CartItem;
 import com.example.liquorland.Models.Drink;
-import com.example.liquorland.ObjectBox;
 import com.example.liquorland.R;
 import com.example.liquorland.databinding.FragmentHomeBinding;
 import com.example.liquorland.ui.ItemDetailFragment;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.List;
-
-import io.objectbox.Box;
+import java.util.Calendar;
 
 public class HomeFragment extends Fragment{
 
@@ -35,67 +44,82 @@ public class HomeFragment extends Fragment{
     private FragmentHomeBinding binding;
     Context context;
 
+    String drinkid;
+
     TextView see_all;
     ImageView offers;
 
-
-     List<Drink> drinks= new ArrayList<>();
+    ArrayList<Drink> drinks= new ArrayList<>();
     DrinksAdapter drinksAdapter;
     RecyclerView drinkrecyclerview;
-    private Box<Drink> displaydrinks;
+
+
+    DatabaseReference mbase, mydb;
+    FirebaseAuth auth;
+
+
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-        homeViewModel =
-                new ViewModelProvider(this).get(HomeViewModel.class);
+        homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         root = inflater.inflate(R.layout.fragment_home, container, false);
 
-        displaydrinks= ObjectBox.get().boxFor(Drink.class);
-        drinks= (ArrayList<Drink>) displaydrinks.getAll();
+
+        mbase = FirebaseDatabase.getInstance().getReference("Drinks");
 
 
         drinkrecyclerview= root.findViewById(R.id.drinks_recyclerview);
         drinkrecyclerview.setNestedScrollingEnabled(true);
         drinkrecyclerview.setHasFixedSize(true);
-        drinkrecyclerview.setLayoutManager(new StaggeredGridLayoutManager(1,LinearLayoutManager.HORIZONTAL));
+        drinkrecyclerview.setLayoutManager(new StaggeredGridLayoutManager(1, LinearLayoutManager.HORIZONTAL));
 
-        drinksAdapter= new DrinksAdapter(drinks, context, this);
-        drinkrecyclerview.setAdapter(drinksAdapter);
 
+        mbase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                drinks.clear();
+                 for(DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                     Drink drink = dataSnapshot.getValue(Drink.class);
+                     drinks.add(drink);
+                 }
+                drinksAdapter= new DrinksAdapter(drinks, context, HomeFragment.this);
+                drinkrecyclerview.setAdapter(drinksAdapter);
+                drinksAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
 
         return root;
     }
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+@Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {                                    
         super.onViewCreated(view, savedInstanceState);
 
         see_all=view.findViewById(R.id.txt_see_all);
         see_all.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                BrandsFragment brandsFragment = new BrandsFragment();
-//                FragmentManager fragmentManager= getFragmentManager();
-//                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-//                fragmentTransaction.replace(R.id.nav_host_fragment_activity_main, brandsFragment);
-//                fragmentTransaction.commit();
-                Navigation.findNavController(requireView()).navigate(R.id.navigation_brands);
+
+              Navigation.findNavController(requireView()).navigate(R.id.navigation_brands);
+
             }
         });
         offers=view.findViewById(R.id.img_offer);
         offers.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                BrandsFragment brandsFragment = new BrandsFragment();
-//                FragmentManager fragmentManager= getFragmentManager();
-//                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-//                fragmentTransaction.replace(R.id.nav_host_fragment_activity_main, brandsFragment);
-//                fragmentTransaction.commit();
+
                 Navigation.findNavController(requireView()).navigate(R.id.navigation_brands);
+
             }
 
         });
@@ -113,52 +137,70 @@ public class HomeFragment extends Fragment{
         binding = null;
     }
 
-  //  private ArrayList<Drink> sampledrinks(){
 
-//        ArrayList<Drink> samples= new ArrayList<>();
-//
-//        samples.add(new Drink(" Jack Daniels", "1 litre", "ksh6,000", "", "",""));
-//        samples.add(new Drink("Glen Grant", "750ml", "ksh4,800", "", "",""));
-//        samples.add(new Drink("Caprice Dry White", "750ml", "ksh1,000", "","",""));
-//        samples.add(new Drink("Mamma Mia Red Sweet", "750ml", "ksh1,800", "", "",""));
-//        samples.add(new Drink("Heineken Can", "500ml", "ksh275", "", "",""));
-//        samples.add(new Drink("Bavaria Black", "350ml", "ksh500", "", "",""));
-//        samples.add(new Drink("Smirnoff Double Black Ice", "250ml", "ksh200", "", "",""));
-//        samples.add(new Drink("Remy Martin Vsop", "750ml", "ksh7,400", "", "",""));
-//        samples.add(new Drink("Bisquit Classique", "700ml", "ksh4,000", "", "",""));
-//        samples.add(new Drink("Martell Xo", "750ml", "ksh23,400", "", "",""));
-//        samples.add(new Drink("Hennessy Vsop", "1 litre", "ksh11,900", "", "",""));
-//        samples.add(new Drink("Baron otard Gold", "700ml", "ksh23,199", "", "",""));
-//        samples.add(new Drink("Belvedere Blood Mary", "750ml", "ksh5,300", "", "",""));
-//        samples.add(new Drink("Skyy Dragon Fruit", "750ml", "ksh1,800", "", "",""));
-//        samples.add(new Drink("Absolut Kurant", "750ml", "ksh2,200", "", "",""));
-//        samples.add(new Drink("White Mischief Vodka", "500ml", "ksh1,500", "", "",""));
-//        samples.add(new Drink("KGB Vodka Caramel", "1 litre", "ksh4,000", "", "",""));
-//        samples.add(new Drink("Raspberry Vodka", "500ml", "ksh3,500", "", "",""));
-//        samples.add(new Drink("Bacardi Oro", "750ml", "ksh2,000", "", "",""));
-//        samples.add(new Drink("Old Nick White Rum", "750ml", "ksh3,000", "", "",""));
-//        samples.add(new Drink("Don Julio 1942", "750ml", "ksh4,000", "", "",""));
-//        samples.add(new Drink("Olmeca Blanco", "750ml", "ksh4,000", "", "",""));
-//        samples.add(new Drink("La Tilica Reposado", "750ml", "ksh6,300", "", "",""));
-//        samples.add(new Drink("Laurent Pierre", "750ml", "ksh8,100", "", "",""));
-//        samples.add(new Drink("Atec Tequila", "1 litre", "ksh3,489", "", "",""));
-//
-//        return samples;
 
-//    }
+    public void goToDetails(Drink drink){
 
-    public void goToDetails(Drink drink, Integer position){
         Bundle bundle= new Bundle();
-        bundle.putString("Drink name", drinks.get(position).getDrinkname());
-        bundle.putString("Drink price", drinks.get(position).getDrinkprice());
-        bundle.putString("Drink volume", drinks.get(position).getDrinkvolume());
-        bundle.putString("Drink image", drinks.get(position).getDrinkimage());
+        bundle.putString("Drink name", drink.getDrinkname());
+        bundle.putString("Drink price",drink.getDrinkprice());
+        bundle.putString("Drink volume",drink.getDrinkvolume());
+        bundle.putString("Drink image",drink.getImageUrl());
+        bundle.putString("Drink Id", drink.getId());
+
         ItemDetailFragment detailFragment = new ItemDetailFragment();
         detailFragment.setArguments(bundle);
         Navigation.findNavController(requireView()).navigate(R.id.itemDetailFragment, bundle);
 
     }
 
+
+
+
+
+    public void AddToCart(Drink drink){
+
+        auth= FirebaseAuth.getInstance();
+        FirebaseUser mAuth= auth.getCurrentUser();
+
+
+        String savecurrentTime,savecurrentDate;
+
+        Calendar calForDate= Calendar.getInstance();
+
+        SimpleDateFormat currentDate= new SimpleDateFormat("MM dd, yy");
+        savecurrentDate= currentDate.format(calForDate.getTime());
+
+        SimpleDateFormat currentTime= new SimpleDateFormat("HH: mm: ss");
+        savecurrentTime= currentTime.format(calForDate.getTime());
+
+        mydb= FirebaseDatabase.getInstance().getReference().child("Cart").child(mAuth.getUid());
+        drinkid= drink.getId();
+
+        CartItem cartItem= new CartItem();
+        cartItem.setCartdrinkname(drink.getDrinkname());
+        cartItem.setCartdrinkvolume(drink.getDrinkvolume());
+        cartItem.setCartdrinkprice(drink.getDrinkprice());
+        cartItem.setCartdrinkimage(drink.getImageUrl());
+        cartItem.setDate(savecurrentDate);
+        cartItem.setTime(savecurrentTime);
+        cartItem.setCart_itemid(drinkid);
+
+        mydb.child(drinkid).setValue(cartItem).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+
+                Toast.makeText(getContext(), "Drink successfully added to your cart", Toast.LENGTH_SHORT).show();
+
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(getContext(), "Failed because  "+ e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+    }
 
 
 }

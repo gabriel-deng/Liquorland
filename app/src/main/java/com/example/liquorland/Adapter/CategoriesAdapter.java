@@ -4,28 +4,28 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.liquorland.Models.Category;
 import com.example.liquorland.R;
-import com.google.android.material.chip.Chip;
+import com.example.liquorland.ui.brands.BrandsFragment;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ViewHolder> {
-
-    List<Category> categories;
+    ArrayList<Category> categories;
     Context context;
+    BrandsFragment brandsFragment;
 
-    public CategoriesAdapter() {
-    }
-
-    public CategoriesAdapter(List<Category> categories, Context context) {
+    public CategoriesAdapter(ArrayList<Category> categories, Context context, BrandsFragment brandsFragment) {
         this.categories = categories;
         this.context = context;
+        this.brandsFragment = brandsFragment;
     }
+
 
     @NonNull
     @Override
@@ -33,32 +33,38 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Vi
         View view = LayoutInflater
                 .from(parent.getContext()).inflate( R.layout.category_item, parent, false);
 
-
-        return new CategoriesAdapter.ViewHolder(view);
-
+        return new  CategoriesAdapter.ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull CategoriesAdapter.ViewHolder holder, int position) {
+
         Category category= categories.get(position);
-        holder.category_name.setText(categories.get(position).getCategory_name());
-        holder.position=holder.getAdapterPosition();
+
+        holder.categoryName.setText(category.getCategory_name());
+
     }
 
     @Override
     public int getItemCount() {
-       return categories.size();
+        return categories.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
-
-      Chip category_name;
-        Integer position;
-
+    public class ViewHolder extends RecyclerView.ViewHolder{
+        TextView categoryName;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            category_name=itemView.findViewById(R.id.txt_category_name);
 
+            categoryName=itemView.findViewById(R.id.txt_category_name);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    brandsFragment.gotocategories(categories.get(getAbsoluteAdapterPosition()));
+                }
+            });
         }
     }
 }
+

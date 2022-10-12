@@ -6,6 +6,6 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        ObjectBox.init((App) getApplicationContext());
+      //  ObjectBox.init((App) getApplicationContext());
     }
 }

@@ -1,30 +1,45 @@
 package com.example.liquorland.Models;
 
-import io.objectbox.annotation.Entity;
-import io.objectbox.annotation.Id;
 
-@Entity
-public class Drink {
+public class Drink  {
 
-  @Id public long id;
 
-    String drinkname, drinkvolume, drinkprice, category;
+
+public String id;
+
+    String drinkname, drinkvolume, drinkprice, category, imageUrl;
     String drinkimage;
 
-    public Drink(String drinkname, String drinkvolume, String drinkprice, String category, String drinkimage, String category_name) {
+    public Drink(String id, String drinkname, String drinkvolume, String drinkprice, String category, String imageUrl, String drinkimage) {
+        this.id = id;
         this.drinkname = drinkname;
         this.drinkvolume = drinkvolume;
         this.drinkprice = drinkprice;
         this.category = category;
+        this.imageUrl = imageUrl;
         this.drinkimage = drinkimage;
+    }
+    public Drink() {
+    }
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     public Drink(String drinkname) {
         this.drinkname = drinkname;
-    }
-
-    public Drink() {
     }
 
     public String getDrinkname() {
@@ -59,12 +74,5 @@ public class Drink {
         this.category = category;
     }
 
-    public String getDrinkimage() {
-        return drinkimage;
-    }
-
-    public void setDrinkimage(String drinkimage) {
-        this.drinkimage = drinkimage;
-    }
 
 }

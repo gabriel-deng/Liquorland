@@ -19,7 +19,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/ic_drink_image"
+            android:id="@+id/ic_list_image"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/black"
@@ -27,7 +27,7 @@
     </androidx.cardview.widget.CardView>
 
     <TextView
-        android:id="@+id/txt_drink_name"
+        android:id="@+id/txt_product_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -40,28 +40,25 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.045"
         app:layout_constraintStart_toStartOf="parent"
+
         app:layout_constraintTop_toBottomOf="@+id/cardView2" />
 
     <TextView
-        android:id="@+id/txt_drink_volume"
+        android:id="@+id/txt_product_volume"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
         android:padding="5dp"
         android:text="VOLUME"
         android:textAlignment="center"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_drink_name" />
+        app:layout_constraintTop_toBottomOf="@+id/txt_product_name" />
 
     <TextView
-        android:id="@+id/txt_drink_price"
+        android:id="@+id/txt_product_price"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
         android:background="@drawable/rounded_corners"
         android:backgroundTint="@color/black"
         android:padding="5dp"
@@ -70,18 +67,15 @@
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_drink_volume" />
+        app:layout_constraintTop_toBottomOf="@+id/txt_product_volume" />
 
     <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/ic_add_tocart"
+        android:id="@+id/ic_product_to_cart"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:layout_marginStart="56dp"
+        android:layout_marginStart="55dp"
         android:background="@drawable/ic_add_item"
         android:backgroundTint="@color/white"
-        app:layout_constraintBottom_toBottomOf="@+id/txt_drink_price"
-        app:layout_constraintStart_toStartOf="@+id/txt_drink_price"
-        app:layout_constraintTop_toBottomOf="@+id/txt_drink_volume"
-        app:layout_constraintVertical_bias="1.0" />
-
+        app:layout_constraintStart_toStartOf="@+id/txt_product_price"
+        app:layout_constraintTop_toTopOf="@+id/txt_product_price" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,25 +1,47 @@
 package com.example.liquorland.Models;
 
-import io.objectbox.annotation.Entity;
-import io.objectbox.annotation.Id;
 
-@Entity
 public class CartItem {
-    @Id public long id;
-    String cartdrinkname, cartdrinkvolume, cartdrinkprice, cartcategory;
-    String cartdrinkimage;
 
-    public CartItem(String cartdrinkname, String cartdrinkvolume, String cartdrinkprice, String cartcategory, String cartdrinkimage) {
+    String cartdrinkname, cartdrinkvolume, cartdrinkprice;
+    String cartdrinkimage, date, time, cart_itemid;
+
+    public CartItem(String cartdrinkname, String cartdrinkvolume, String cartdrinkprice, String cartdrinkimage, String date, String time, String cart_itemid) {
         this.cartdrinkname = cartdrinkname;
         this.cartdrinkvolume = cartdrinkvolume;
         this.cartdrinkprice = cartdrinkprice;
-        this.cartcategory = cartcategory;
         this.cartdrinkimage = cartdrinkimage;
+        this.date = date;
+        this.time = time;
+        this.cart_itemid = cart_itemid;
     }
 
     public CartItem() {
     }
 
+    public String getCart_itemid() {
+        return cart_itemid;
+    }
+
+    public void setCart_itemid(String cart_itemid) {
+        this.cart_itemid = cart_itemid;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
 
     public String getCartdrinkname() {
         return cartdrinkname;
@@ -45,13 +67,6 @@ public class CartItem {
         this.cartdrinkprice = cartdrinkprice;
     }
 
-    public String getCartcategory() {
-        return cartcategory;
-    }
-
-    public void setCartcategory(String cartcategory) {
-        this.cartcategory = cartcategory;
-    }
 
     public String getCartdrinkimage() {
         return cartdrinkimage;

@@ -1,5 +1,6 @@
 package com.example.liquorland;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 
@@ -17,10 +18,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
 
-
     private ActivityMainBinding binding;
-
-
+    Context context= getBaseContext();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,12 +28,14 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+
+
         BottomNavigationView navView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.navigation_home, R.id.navigation_brands, R.id.navigation_cart, R.id.navigation_checkout, R.id.itemDetailFragment,
-                R.id.navigation_orders, R.id.navigation_product_form)
+                R.id.navigation_orders, R.id.listOfDrinksFragment, R.id.singleOrderFragment)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
@@ -45,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onDestinationChanged(@NonNull NavController controller,
                                              @NonNull NavDestination destination, @Nullable Bundle arguments) {
-                if(destination.getId() == R.id.navigation_checkout || destination.getId()== R.id.itemDetailFragment) {
+                if (destination.getId() == R.id.itemDetailFragment || destination.getId()== R.id.listOfDrinksFragment) {
                     navView.setVisibility(View.GONE);
                 } else {
                     navView.setVisibility(View.VISIBLE);
@@ -53,6 +54,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-    }
 
+    }
 }

@@ -5,21 +5,30 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
-import com.example.liquorland.Adapter.CartAdapter;
-import com.example.liquorland.Models.CartItem;
+import com.example.liquorland.Models.Orders;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
-import java.util.ArrayList;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 
 public class Checkout extends Fragment {
@@ -27,55 +36,33 @@ public class Checkout extends Fragment {
 
 
     Context context= getContext();
-    ArrayList<CartItem> items= new ArrayList<>();
-    RecyclerView cartrecyclerview;
-    CartAdapter cartAdapter;
+    String amount;
 
     ImageView back;
+    TextView amountdisplay, mpesa, equity, standardchartered;
+    TextInputEditText address;
+    Button paybutton;
 
-
+    FirebaseAuth auth;
+    DatabaseReference ordersdb;
 
     View  view;
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
     public Checkout() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-//     * @param param1 Parameter 1.
-//     * @param param2 Parameter 2.
-     * @return A new instance of fragment CheckoutFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-//    public static Checkout newInstance(String param1, String param2) {
-//        Checkout fragment = new Checkout();
-//        Bundle args = new Bundle();
-//        args.putString(ARG_PARAM1, param1);
-//        args.putString(ARG_PARAM2, param2);
-//        fragment.setArguments(args);
-//        return fragment;
-//    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+
+        Bundle bundle= getArguments();
+        amount= bundle.getString("AmountToPay");
 
 
-        }
+
     }
 
     @Override
@@ -86,15 +73,17 @@ public class Checkout extends Fragment {
 
         BottomNavigationView navView =root.findViewById(R.id.nav_view);
         back=root.findViewById(R.id.ic_back_cart);
+        paybutton=root.findViewById(R.id.btn_PayButton);
+        address= root.findViewById(R.id.txt_address);
+        mpesa=root.findViewById(R.id.txt_mpesa);
+        equity=root.findViewById(R.id.txt_equity);
+        standardchartered=root.findViewById(R.id.txt_standardchartered);
+
+        amountdisplay=root.findViewById(R.id.txt_amont_display);
+            amountdisplay.setText(amount);
 
 
-        ArrayList<CartItem> items= samples();
-        cartrecyclerview=root.findViewById(R.id.checkout_recyclerview);
-        cartrecyclerview.setHasFixedSize(false);
-        cartrecyclerview.setNestedScrollingEnabled(true);
-        cartrecyclerview.setLayoutManager(new StaggeredGridLayoutManager(1,LinearLayoutManager.HORIZONTAL));
-        cartAdapter= new CartAdapter(items, context);
-        cartrecyclerview.setAdapter(cartAdapter);
+
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,6 +91,23 @@ public class Checkout extends Fragment {
                 Navigation.findNavController(requireView()).navigate(R.id.navigation_cart);
             }
         });
+
+        equity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Snackbar.make(root,"Service is currently unavailable \n"+ "Please use M-pesa for the meantime", Snackbar.LENGTH_LONG).show();
+            }
+        });
+
+        standardchartered.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Snackbar.make(root,"Service is currently unavailable \n"+ "Please use M-pesa for the meantime", Snackbar.LENGTH_LONG).show();
+            }
+        });
+
+        DisplayPaymentDialog();
+
 
         return root;
 
@@ -112,16 +118,92 @@ public class Checkout extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-
-    }
-    private ArrayList<CartItem> samples(){
-        ArrayList<CartItem> items= new ArrayList<>();
-        items.add(new CartItem("xdvdfgg", "dkkefkef","ksefjelsd;", "ncjsdknvr", ""));
-        items.add(new CartItem("xddddvdfgg", "dkkefkef","ksefjelsd;", "ncjsdknvr", ""));
-        items.add(new CartItem("xddddvdfgg", "dkkefkef","ksefjelsd;", "ncjsdknvr", ""));
-        items.add(new CartItem("xddddvdfgg", "dkkefkef","ksefjelsd;", "ncjsdknvr", ""));
-        items.add(new CartItem("xddddvdfgg", "dkkefkef","ksefjelsd;", "ncjsdknvr", ""));
-        return items;
+        paybutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Payment();
     }
 
+    public void Payment(){
+        String useraddress= address.getText().toString();
+        String dev_status= "Not Delivered";
+
+        if(useraddress.isEmpty()){
+            address.setError("Please enter your shipping address");
+        }else{
+            auth= FirebaseAuth.getInstance();
+            FirebaseUser mAuth= auth.getCurrentUser();
+
+            ordersdb= FirebaseDatabase.getInstance().getReference().child("Orders").child(mAuth.getUid());
+            String refnumber= ordersdb.push().getKey();
+            String savecurrentDate;
+
+            Calendar calForDate= Calendar.getInstance();
+
+            SimpleDateFormat currentDate= new SimpleDateFormat("MM/ dd/ yy");
+            savecurrentDate= currentDate.format(calForDate.getTime());
+
+
+            Orders order= new Orders();
+            order.setCreated_at(savecurrentDate);
+            order.setRef_number(refnumber);
+            order.setPrice(amount);
+            order.setDelivery_status(dev_status);
+
+            ordersdb.child(refnumber).setValue(order).addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void unused) {
+                    Snackbar.make(requireView(),"Order has been places successfully \n"+ "Now wait to receive it on your front door", Snackbar.LENGTH_LONG).show();
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(getContext(), "Failed because "+ e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+
+    }
+        });
+
+        auth = FirebaseAuth.getInstance();
+        FirebaseUser mAuth = auth.getCurrentUser();
+
+        DatabaseReference odersref;
+        odersref= FirebaseDatabase.getInstance().getReference().child("Cart").child(mAuth.getUid());
+
+        odersref.removeValue();
+    }
+
+    public void DisplayPaymentDialog(){
+        final BottomSheetDialog bottomsheetdialog = new BottomSheetDialog(getContext());
+        bottomsheetdialog.setContentView(R.layout.payment_dialog);
+
+        TextInputEditText amount_paid = bottomsheetdialog.findViewById(R.id.txt_amount_paid);
+
+        TextView proceed= bottomsheetdialog.findViewById(R.id.txt_continue);
+
+        mpesa.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                bottomsheetdialog.show();
+            }
+        });
+
+        proceed.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String amount_entered= amount_paid.getText().toString();
+
+                if(amount_entered.isEmpty()){
+                    Toast.makeText(getContext(), "Please enter the amount you wish to pay", Toast.LENGTH_SHORT).show();
+                }else if(!(amount_entered.equals(amount))){
+                    Toast.makeText(getContext(), "You have entered an incorrect amount \n"+ "Try again", Toast.LENGTH_SHORT).show();
+                }else {
+
+                    bottomsheetdialog.dismiss();
+                }
+            }
+        });
+    }
 }
