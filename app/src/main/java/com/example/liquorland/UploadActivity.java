@@ -38,6 +38,9 @@ import java.util.UUID;
 
 public class UploadActivity extends AppCompatActivity {
 
+    // I created this class for the sole purpose of uploading the products to my
+    // realtime database. It serves no other functions hence you should ignore it
+
     private static final int GALLERY_REQUEST_CODE = 35;
     private Uri filePath;
 
@@ -131,8 +134,7 @@ public class UploadActivity extends AppCompatActivity {
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(
-                Intent.createChooser(
+        startActivityForResult(Intent.createChooser(
                         intent,
                         "Select Image from here..."),
                 GALLERY_REQUEST_CODE);

@@ -34,6 +34,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class CartFragment extends Fragment{
 
+// You cannot add the same item more than once into the cart
 
     private CartViewModel cartViewModel;
     private CartFragmentBinding binding;

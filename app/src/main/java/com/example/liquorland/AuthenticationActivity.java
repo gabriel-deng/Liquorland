@@ -2,7 +2,6 @@ package com.example.liquorland;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -13,7 +12,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.liquorland.Networking.POJO.UserResponse;
 import com.example.liquorland.utils.PreferenceStorage;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -28,13 +26,7 @@ public class AuthenticationActivity extends AppCompatActivity {
     TextInputEditText name, number, password, confirm, emailAddress;
     Button login;
     PreferenceStorage preferenceStorage;
-    String userName;
-    Editable userNumber;
-    String userEmail;
-    String userPassword;
-    String login_userName;
-    Editable login_password;
-    UserResponse userResponse;
+
 
 
     CheckBox status;

@@ -36,6 +36,10 @@ import java.util.List;
 
 public class ListOfDrinksFragment extends Fragment {
 
+// In this fragment a wanted to display items based on their category but was unable
+// Now once you clicked a certain category from brands fragment you will get all the items irregardless of category
+
+
     Context context= getContext();
 
     List<Drink> drinks= new ArrayList<>();
