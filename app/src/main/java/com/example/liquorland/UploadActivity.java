@@ -39,7 +39,7 @@ import java.util.UUID;
 public class UploadActivity extends AppCompatActivity {
 
     // I created this class for the sole purpose of uploading the products to my
-    // realtime database. It serves no other functions hence you should ignore it
+    // realtime database. The class serves no other function.
 
     private static final int GALLERY_REQUEST_CODE = 35;
     private Uri filePath;
